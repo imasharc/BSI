@@ -1,0 +1,9 @@
+Kali commands useful for completing tasks for BSI:
+TOPIC: Bypassing basic mechanisms of user block
+
+Automatic logout:
+On the server, in the user’s home directory, a file secret.txt was placed which includes the task solution. However, as a result of the file .bash_rc modification, after logging in, the user is automatically logged out. Find a way and read the file content and provide the task solution.
+[sftp user@host -> based on the ssh protoccol, allows secure connection to transfer files]
+ssh -l alice 10.0.42.158 "ls"
+ssh -l alice 10.0.42.158 "cat secret.txt"
+ssh -l alice 10.0.42.158 -t "sh -i" [interactive mode]

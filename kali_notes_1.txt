@@ -1,0 +1,24 @@
+Kali commands useful for completing tasks for BSI:
+TOPIC: Log analysis
+--
+Log analysis by a particular service:
+On the server, in the file /var/log/audit.log there is a record of events which occurred in the system. The task solution is in the entry (line) which concerns a VSFTPD, FTP, or XINETD service.
+cat /var/log/audit.log | grep "vsftpd\|ftp\|xinetd"
+
+Failed ssh login attempt analysis:
+On the server, in the file /var/log/audit.log there is a record of events regarding logging in through SSH. One of them includes a failed login attempt entry.
+The task solution is the name of the user on whose account an attempt was made to log in.
+cat /var/log/audit.log | grep -E "sshd.*invalid"
+
+
+Successful SSH login attempts analysis:
+On the server, in the file /var/log/audit.log there is a record of events regarding logging in through SSH. One of them is a successful login attempt, which means that the intruder gained access to the server.
+The task solution is the name of the user on whose account an attempt was made to log in.
+cat /var/log/audit.log | grep opened
+
+
+Multiple failed SSH login attempts analysis:
+On the server, in the file /var/log/audit.log there is a record of events regarding logging in through SSH. A part of them are unsuccessful login attempts to accounts of users user_X, where X assumes various values.
+The task solution can be constructed from the values of X ordered by the time of login attempt – from the oldest to the latest one.
+cat /var/log/audit.log | grep user_
+
