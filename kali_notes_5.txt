@@ -1,0 +1,28 @@
+Kali commands useful for completing tasks for BSI:
+TOPIC: [CRYPTOGRAPHY] Asymmetric encryption
+
+task_1: RSA keys generation
+openssl genrsa -out private.pem 4096
+openssl rsa -in private.pem -out public.pem -pubout
+cat public.pem > answer.txt
+echo "" >> answer.txt
+cat private.pem >> answer.txt
+nc URL PORT < answer.txt
+
+task_2: Key generation on elliptic curves
+TO BE DONE
+
+task_3: Encryption with the public key
+echo "STRING" > string.txt
+echo "PUBLIC_KEY" > public.pem
+openssl rsautl -encrypt -in string.txt -out file.enc -inkey public.pem -pubin -oaep
+cat file.enc | base64 -w0 (OR cat file.enc | base64 -w0 > answer.txt)
+
+task_4: Certificate with a given Common Name field
+openssl genrsa -out caprivate.pem 2048
+openssl req -x509 -out ca.cert -key caprivate.pem -new
+
+task_5: Certificate based on request
+echo "CERTIFICATE_REQUEST" > client.csr
+???
+openssl x509 -req -CAkey ../task_4/caprivate.pem -CA ../task_4/ca.cert -in client.csr -out clientcert.cert -CAcreateserial

@@ -1,0 +1,23 @@
+Kali commands useful for completing tasks for BSI:
+TOPIC: [CRYPTOGRAPHY] Hash functions
+
+----
+task_3: Breaking the MD5 hash with the dictionary method
+echo "txt" > pass.txt (write "txt" into the pass.txt file)
+wc file.txt (word count)
+john --wordlist=wordlist.txt pass.txt (make John the Ripper read word from worldist.txt)
+john --wordlist=wordlist.txt --format=raw-md5 pass.txt (make john read thee wordlist.txt and hint it with the format of hash function used)
+
+task_4: 
+Hash function identification
+python script
+
+task_5: The HMAC authentication code
+SHA512 vs HMAC -> HMAC uses key to guarantee data integration
+man openssl
+man openssl dgst
+openssl list --digest-commands
+echo -n 'FILE' | openssl dgst -sha512 -hmac 'KEY'
+
+task_6: MD5 collision
+nc IP PORT < file.txt (redirect file content for the input 'on the fly' for netcat connectionS)
