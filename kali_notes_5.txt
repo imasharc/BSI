@@ -10,7 +10,13 @@ cat private.pem >> answer.txt
 nc URL PORT < answer.txt
 
 task_2: Key generation on elliptic curves
-TO BE DONE
+openssl ecparam -list_curves (list eliptic curves in openssl)
+openssl ecparam -name prime256v1 -genkey -out priv.pem
+openssl ec -in priv.pem -out pub.pem -pubout
+cat pub.pem > keys.pem
+echo "" >> keys.pem
+cat priv.pem >> keys.pem
+nc IP PORT < keys.pem (to pass the file to the server 'on the fly')
 
 task_3: Encryption with the public key
 echo "STRING" > string.txt
@@ -26,3 +32,24 @@ task_5: Certificate based on request
 echo "CERTIFICATE_REQUEST" > client.csr
 ???
 openssl x509 -req -CAkey ../task_4/caprivate.pem -CA ../task_4/ca.cert -in client.csr -out clientcert.cert -CAcreateserial
+
+task_6: The PGP key generation
+(sudo apt install gpg)
+gpg --gen-key
+gpg --export --armor UID > FILE.pem
+nc IP PORT < FILE.pem
+
+task_7: Encryption with the PGP key
+TO BE REVIEWED
+echo "KEY" > pub.pem
+gpg --show-key pub.pem (display info about pub.pem key)
+gpg --import pub.pem (import into public keys set)
+echo -n "MESSAGE" > message.txt
+echo -n "MESSAGE" | gpg --encrypt --armor --recipient RECIPIENT > message.txt.asc (--armor flag is for changing binary represantation to ASCII)
+
+task_8: Decryption with PGP key
+gpg --gen-key
+gpg --export --armor UID > public.pem
+nc IP PORT < public.pem
+echo "MESSAGE" > data.enc
+gpg --decrypt data.enc (then enter passphrase)
