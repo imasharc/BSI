@@ -1,24 +1,43 @@
 Kali commands useful for completing tasks for BSI:
-TOPIC: Log analysis
---
-Log analysis by a particular service:
-On the server, in the file /var/log/audit.log there is a record of events which occurred in the system. The task solution is in the entry (line) which concerns a VSFTPD, FTP, or XINETD service.
-cat /var/log/audit.log | grep "vsftpd\|ftp\|xinetd"
+TOPIC: [LINUX] Log analysis
 
-Failed ssh login attempt analysis:
-On the server, in the file /var/log/audit.log there is a record of events regarding logging in through SSH. One of them includes a failed login attempt entry.
-The task solution is the name of the user on whose account an attempt was made to log in.
-cat /var/log/audit.log | grep -E "sshd.*invalid"
+task_1: Log file statistics
+ssh USER@IP OR ssh -l USER IP
+...
+wc FILE (show number of lines contained in FILE)
+cat FILE | head -1818 | tail -1 (display the last line (single line) of the first 1818 lines from FILE)
 
+task_2: Log analysis by date
+ssh -l USER IP
+...
+cat FILE | grep STRING (find in the FILE a specific STRING)
 
-Successful SSH login attempts analysis:
-On the server, in the file /var/log/audit.log there is a record of events regarding logging in through SSH. One of them is a successful login attempt, which means that the intruder gained access to the server.
-The task solution is the name of the user on whose account an attempt was made to log in.
-cat /var/log/audit.log | grep opened
+task_3: Log analysis by length
+ssh -l USER IP
+...
+cat FILE| grep -E "REGEX" (search for regular expression in the FILE)
+REGEX = ^.{150,180} (^ - start from the beginning of the line; . - any characters appearing; {150, 180} - characters are to be reapeated from 150 to 180 times)
 
+task_3: Log analysis by time frame
+ssh -l USER IP
+cat FILE | grep -e "08:0[0-2]:[0-5][0-9]" (search in the FILE for the lines containing 'time between 8:00 and 8:02')
 
-Multiple failed SSH login attempts analysis:
-On the server, in the file /var/log/audit.log there is a record of events regarding logging in through SSH. A part of them are unsuccessful login attempts to accounts of users user_X, where X assumes various values.
-The task solution can be constructed from the values of X ordered by the time of login attempt – from the oldest to the latest one.
-cat /var/log/audit.log | grep user_
+task_4: Log analysis by a particular service:
+ssh -l USER IP
+...
+cat /var/log/audit.log | grep "vsftpd\|ftp\|xinetd" (search in the FILE for the lines containing 'string_1 OR string_2 OR string_3')
 
+task_5: Failed ssh login attempt analysis:
+ssh -l USER IP
+...
+cat FILE | grep -E "sshd.*invalid"
+
+task_6: Successful SSH login attempts analysis:
+ssh -l USER IP
+...
+cat FILE | grep STRING_1 | grep -v STRING_2 (search the FILE for phrased that include STRING_1 but do not include STRING_2)
+
+task_7: Multiple failed SSH login attempts analysis:
+ssh -l USER IP
+...
+cat FILE | grep user_
