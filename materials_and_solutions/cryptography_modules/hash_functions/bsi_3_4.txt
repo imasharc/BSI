@@ -1,23 +1,46 @@
-Kali commands useful for completing tasks for BSI:
+Kali commands useful for completing tasks from BSI:
 TOPIC: [CRYPTOGRAPHY] Hash functions
 
-----
-task_3: Breaking the MD5 hash with the dictionary method
+task_1: The MD5 hash function
+nc -v IP PORT (display details about the connection to IP on PORT)
+...
+(one-liner returning the string to be encoded from the server)
+nc IP PORT | grep -o '".*"' | tr -d '"' | tr -d '\n' (From the nc command output, find string that matches a given regex and trim the '"' (quotation) and the newline characters from it)
+
+(one-liner to md5 hash the string (to be encoded) which was received from netcat)
+nc IP PORT | grep -o '".*"' | tr -d '"' | tr -d '\n' | md5sum | tr -d '\s*-' | tr -d '\n' (similar as abover but at to the pipe md5 hashing, spaces, '-' and newline characters trimming)
+
+task_2: The SHA1 hash function
+(similarly as above but change md5sum to sha1sum)
+nc IP PORT | grep -o '".*"' | tr -d '"' | tr -d '\n' | sha1sum | tr -d '\s*-' | tr -d '\n'
+
+task_3: The SHA3 hash function
+nc IP PORT | grep -o '".*"' | tr -d '"' | tr -d '\n' (to get the string)
+vim sha3_encode.py
+python3 script:
+    import hashlib
+    
+    sha3 = hashlib.sha3_512()
+    sha3.update('STRING'.encode('utf-8'))
+    print(sha3.digest())
+python3 sha3_encode.py
+
+task_4: Breaking the MD5 hash with the dictionary method
 echo "txt" > pass.txt (write "txt" into the pass.txt file)
 wc file.txt (word count)
 john --wordlist=wordlist.txt pass.txt (make John the Ripper read word from worldist.txt)
 john --wordlist=wordlist.txt --format=raw-md5 pass.txt (make john read thee wordlist.txt and hint it with the format of hash function used)
 
-task_4: 
+task_5: 
 Hash function identification
 python script
 
-task_5: The HMAC authentication code
+task_6: The HMAC authentication code
 SHA512 vs HMAC -> HMAC uses key to guarantee data integration
 man openssl
 man openssl dgst
 openssl list --digest-commands
 echo -n 'FILE' | openssl dgst -sha512 -hmac 'KEY'
 
-task_6: MD5 collision
+task_7: MD5 collision
 nc IP PORT < file.txt (redirect file content for the input 'on the fly' for netcat connectionS)
