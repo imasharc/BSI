@@ -26,16 +26,21 @@ python3 script:
 python3 sha3_encode.py
 
 task_4: Breaking the MD5 hash with the dictionary method
-echo "txt" > pass.txt (write "txt" into the pass.txt file)
-wc file.txt (word count)
-john --wordlist=wordlist.txt pass.txt (make John the Ripper read word from worldist.txt)
-john --wordlist=wordlist.txt --format=raw-md5 pass.txt (make john read thee wordlist.txt and hint it with the format of hash function used)
+nc IP PORT | grep -o '".*"' | tr -d '"' | tr -d '\n' > pass.txt(to save the string into pass.txt file)
+wget https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt (download rockyou.txt)
+sudo apt install john (install John the Reaper)
+john --wordlist=rockyou.txt --format=raw-md5 pass.txt (using dictionary method find the input value which returnes the contents of pass.txt)
 
-task_5: 
-Hash function identification
-python script
+task_5: Hash function identification
+nc IP PORT (in a new terminal window)
+python_script indentify_hash_func.py
 
 task_6: The HMAC authentication code
+nc IP PORT
+openssl list --digest-commands (display available digest functions)
+echo -n 'MESSAGE' > message.txt
+openssl dgst KEY message.txt | tr -d '\n'
+
 SHA512 vs HMAC -> HMAC uses key to guarantee data integration
 man openssl
 man openssl dgst
