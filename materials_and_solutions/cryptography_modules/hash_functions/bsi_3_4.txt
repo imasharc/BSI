@@ -30,16 +30,14 @@ nc IP PORT (in a new terminal window)
 python3 indentify_hash_func.py string_in hash_out
 
 task_6: The HMAC authentication code
+SHA512 vs HMAC -> HMAC uses key to guarantee data integration
 nc IP PORT
 openssl list --digest-commands (display available digest functions)
 echo -n 'MESSAGE' > message.txt
 openssl dgst KEY message.txt | tr -d '\n'
 
-SHA512 vs HMAC -> HMAC uses key to guarantee data integration
-man openssl
-man openssl dgst
-openssl list --digest-commands
-echo -n 'FILE' | openssl dgst -sha512 -hmac 'KEY'
-
 task_7: MD5 collision
-nc IP PORT < file.txt (redirect file content for the input 'on the fly' for netcat connectionS)
+nc IP PORT
+(search the web for 'md5 collision, e.g. Selinger MD5 collision)
+echo -en 'STRING1\nSTRING2' |tr -d '\s' > selinger_md5_sollision.txt
+nc IP PORT < selinger_md5_sollision.txt (redirect file content for the input 'on the fly' for netcat connections)
