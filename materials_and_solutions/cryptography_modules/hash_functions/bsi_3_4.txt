@@ -17,7 +17,7 @@ nc IP PORT | grep -o '".*"' | tr -d '"' | tr -d '\n' | sha1sum | tr -d '\s*-' | 
 task_3: The SHA3 hash function
 nc IP PORT | grep -o '".*"' | tr -d '"' | tr -d '\n' (to get the string)
 vim sha3_encode.py
-python3 sha3_encode.py
+python3 sha3_encode.py string_in
 
 task_4: Breaking the MD5 hash with the dictionary method
 nc IP PORT | grep -o '".*"' | tr -d '"' | tr -d '\n' > pass.txt(to save the string into pass.txt file)
