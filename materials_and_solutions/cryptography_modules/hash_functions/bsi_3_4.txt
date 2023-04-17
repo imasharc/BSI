@@ -17,12 +17,6 @@ nc IP PORT | grep -o '".*"' | tr -d '"' | tr -d '\n' | sha1sum | tr -d '\s*-' | 
 task_3: The SHA3 hash function
 nc IP PORT | grep -o '".*"' | tr -d '"' | tr -d '\n' (to get the string)
 vim sha3_encode.py
-python3 script:
-    import hashlib
-    
-    sha3 = hashlib.sha3_512()
-    sha3.update('STRING'.encode('utf-8'))
-    print(sha3.digest())
 python3 sha3_encode.py
 
 task_4: Breaking the MD5 hash with the dictionary method
@@ -33,7 +27,7 @@ john --wordlist=rockyou.txt --format=raw-md5 pass.txt (using dictionary method f
 
 task_5: Hash function identification
 nc IP PORT (in a new terminal window)
-python_script indentify_hash_func.py
+python3 indentify_hash_func.py string_in hash_out
 
 task_6: The HMAC authentication code
 nc IP PORT
