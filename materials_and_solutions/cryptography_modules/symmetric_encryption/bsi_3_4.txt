@@ -1,4 +1,4 @@
-Kali commands useful for completing tasks for BSI:
+Kali commands useful for completing tasks from BSI:
 TOPIC: [CRYPTOGRAPHY] Symmetric Encryption
 
 task_1: Data decryption with AES
@@ -29,3 +29,14 @@ echo PASSWORD > pwd.pass
 openssl enc -ciphers > ciphers.txt
 grep 'ecb' ciphers.txt > ecb_ciphers.txt
 sh identify_enc_algorithm.sh < ecb_ciphers.txt
+
+task_7: Encrypted Zip file
+curl WEBSITE (read content of the website)
+wget WEBSITE/ARCHIVE.ZIP
+sudo apt install fcrackzip
+fcrackzip -u -D -p rockyou.txt ARCHIVE.ZIP (-u to weed out wrong passwords, -D -puse dictionary from a given file)
+sudo apt install unzip
+unzip ARCHIVE.zip
+(alternative, using John the Reaper)
+zip2john ARCHIVE.zip > john.pass (convert zip to format readable by john and save it to john.pass file)
+john --wordlist=rockyou.txt john.pass
