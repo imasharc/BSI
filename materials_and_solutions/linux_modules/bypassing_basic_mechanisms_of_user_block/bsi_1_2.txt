@@ -2,7 +2,7 @@ Kali commands useful for completing tasks from BSI:
 TOPIC: [LINUX] Bypassing basic mechanisms of user block
 
 task_1: Automatic logout
-ssh -l USER IP "COMMAND" (execute COMMAND right after connecting to the server - in case the server has limited active time)
+ssh -l USER IP "cat secret.txt" (execute COMMAND right after connecting to the server - in case the server has limited active time)
 
 task_2: Access to files in the /root folder
 (one-liner)
