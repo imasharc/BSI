@@ -6,8 +6,8 @@ echo MESSAGE > FILE.enc
 openssl enc -aes-256-ecb -d -a -in FILE.enc -K KEY
 
 task_2: File decryption with AES
-wget URL cs.out
-wget URL pwd.pass
+wget URL/cs.out
+wget URL/pwd.pass
 openssl enc -d -in cs.out -kfile pwd.pass -pbkdf2 -aes-256-cbc
 
 task_3: Data decryption with the 3DES algorithm
@@ -17,25 +17,26 @@ openssl enc -d -a -in file.enc -k KEY -pbkdf2 -des-ede3
 
 task_4: Decryption using PBKDF1 algorithm
 echo MESSAGE > message.enc
-openssl enc -d -aes-256-ecb -a -in message.enc -k KEY -iter 3397
+openssl enc -d -aes-256-ecb -a -in message.enc -k KEY -iter NUMBER
 
 task_5: PBKDF2 with non standard number of iterations
 echo MESSAGE > message.enc
-openssl enc -d -a -pbkdf2 -aes-256-cbc -in message.enc -k KEY -iter 6671416
+openssl enc -d -a -pbkdf2 -aes-256-cbc -in message.enc -k KEY -iter NUMBER
 
 task_6: Identification of the encryption algorithm
-echo MESSAGE > message.txt
+echo MESSAGE > message.enc
 echo PASSWORD > pwd.pass
-openssl enc -ciphers > ciphers.txt
-grep 'ecb' ciphers.txt > ecb_ciphers.txt
+openssl enc -ciphers (display available ciphers)
+(ciphers.txt and ecb_ciphers.txt are included in the repo)
+(ecb_ciphers.txt includes only the ecb ciphers])
 sh identify_enc_algorithm.sh < ecb_ciphers.txt
 
 task_7: Encrypted Zip file
 curl WEBSITE (read content of the website)
 wget WEBSITE/ARCHIVE.ZIP
-sudo apt install fcrackzip
+sudo apt install fcrackzip (if not installed)
 fcrackzip -u -D -p rockyou.txt ARCHIVE.ZIP (-u to weed out wrong passwords, -D -puse dictionary from a given file)
-sudo apt install unzip
+sudo apt install unzip (if not installed)
 unzip ARCHIVE.zip
 (alternative, using John the Reaper)
 zip2john ARCHIVE.zip > john.pass (convert zip to format readable by john and save it to john.pass file)
