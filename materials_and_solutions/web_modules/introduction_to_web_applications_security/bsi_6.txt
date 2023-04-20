@@ -1,0 +1,10 @@
+﻿Kali commands useful for completing tasks from BSI:
+TOPIC: [Web] Introduction to Web applications security
+
+task_1: Response headers preview
+curl -I ADDRESS (fetch the headers only)
+
+task_2: Manipulating HTTP parameters
+curl ADDRESS/?id=NUMBER
+
+THE REST OF THE TASKS WERE DONE USING GUI APPLICATIONS

