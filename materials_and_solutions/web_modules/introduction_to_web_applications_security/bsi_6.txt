@@ -2,9 +2,17 @@
 TOPIC: [Web] Introduction to Web applications security
 
 task_1: Response headers preview
-curl -I ADDRESS (fetch the headers only)
+curl -I ADDRESS | grep 'CS[0-9]*' (fetch the headers only | find the string containing 'CS')
 
 task_2: Manipulating HTTP parameters
-curl ADDRESS/?id=NUMBER
+(script is in the repo)
+python3 brute_force_id_parameter.py ip_address
+(script loops over a given ip_address manipulating the ID parameter to find a solution in the form of e.g. CS123456789)
 
-THE REST OF THE TASKS WERE DONE USING GUI APPLICATIONS
+task_3: Launch and configuration of proxy in a browser
+NO SOLUTION REQUIRED
+
+task_4: Automatic application scan
+curl http://IP_ADDRESS/robots.txt
+
+THE REST OF THE TASKS ARE DONE WITH GUI
